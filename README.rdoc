@@ -1,0 +1,6 @@
+= lifetracker
+
+Describe your project here
+
+:include:lifetracker.rdoc
+

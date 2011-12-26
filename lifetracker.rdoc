@@ -1,0 +1,5 @@
+= lifetracker
+
+Generate this with
+    lifetracker rdoc
+After you have described your command line interface
