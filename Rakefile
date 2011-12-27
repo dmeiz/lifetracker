@@ -1,23 +1,7 @@
-require 'rake/clean'
-require 'rubygems'
-require 'rake/gempackagetask'
-require 'rake/rdoctask'
+#!/usr/bin/env rake
+# Add your own tasks in files placed in lib/tasks ending in .rake,
+# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
-Rake::RDocTask.new do |rd|
-  rd.main = "README.rdoc"
-  rd.rdoc_files.include("README.rdoc","lib/**/*.rb","bin/**/*")
-  rd.title = 'Your application title'
-end
+require File.expand_path('../config/application', __FILE__)
 
-spec = eval(File.read('lifetracker.gemspec'))
-
-Rake::GemPackageTask.new(spec) do |pkg|
-end
-
-require 'rake/testtask'
-Rake::TestTask.new do |t|
-  t.libs << "test"
-  t.test_files = FileList['test/tc_*.rb']
-end
-
-task :default => :test
+Lifetracker::Application.load_tasks
