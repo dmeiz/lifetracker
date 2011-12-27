@@ -1,0 +1,9 @@
+X * schema/migrations
+  * add activity
+X   - cli
+    - validations (category present, memo present)
+    - print day after add
+    - split over midnight
+  * close day
+  * what's still open?
+X * populate prod database
