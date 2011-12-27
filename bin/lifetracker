@@ -10,8 +10,11 @@ unless File.respond_to? :realpath
     end
   end
 end
-$: << File.expand_path(File.dirname(File.realpath(__FILE__)) + '/../lib')
-require 'rubygems'
+
+require File.expand_path('../../config/application',  __FILE__)
+Lifetracker::Application.initialize!
+
+#$: << File.expand_path(File.dirname(File.realpath(__FILE__)) + '/../lib')
 require 'gli'
 require 'lifetracker_version'
 
@@ -48,6 +51,14 @@ on_error do |exception|
   # Error logic here
   # return false to skip default error handling
   true
+end
+
+desc 'Add an activity'
+command :add do |c|
+  c.action do |global,command,options,args|
+    puts 'category count='
+    puts Category.count
+  end
 end
 
 exit GLI.run(ARGV)
