@@ -31,4 +31,7 @@ gem 'jquery-rails'
 
 # To use debugger
 gem 'ruby-debug'
-
+group :test do
+  gem 'shoulda-context'
+  gem 'shoulda-matchers'
+end

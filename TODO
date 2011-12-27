@@ -1,4 +1,5 @@
 X * schema/migrations
+  ! get test env working
   * add activity
 X   - cli
     - validations (category present, memo present)
