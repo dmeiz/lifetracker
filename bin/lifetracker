@@ -63,4 +63,4 @@ command :add do |c|
   end
 end
 
-exit GLI.run(ARGV)
+exit GLI.run(ARGV) unless Rails.env.test? 
