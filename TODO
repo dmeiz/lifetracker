@@ -1,14 +1,14 @@
 Use cases
 
-  * Add activity
-  * Close a day (or days?)
-  * Install
-  * Get a report of work activities
-  * Run some queries for life activities
 
 Tasks
 
 X * schema/migrations
+  * Install
+    - gem install lifetracker
+    - database should live in ~/.lifetracker/
+    - populate the database
+    - should backup and migrate the database
   ! get test env working
   * add activity
 X   - cli
@@ -21,6 +21,7 @@ X   - cli
     - print error
     - print day after add
     - split over midnight
-  * close day
-  * what's still open?
-X * populate prod database
+  * Close a day (or days?)
+    - show me all days that are still open
+  * Get a report of work activities
+  * Run some queries for life activities
