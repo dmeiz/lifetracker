@@ -11,8 +11,10 @@ unless File.respond_to? :realpath
   end
 end
 
-require File.expand_path('../../config/application',  __FILE__)
-Lifetracker::Application.initialize!
+# unit test sets up rails app, so don't initialize it if it's already loaded
+if require File.expand_path('../../config/application',  __FILE__)
+  Lifetracker::Application.initialize!
+end
 
 #$: << File.expand_path(File.dirname(File.realpath(__FILE__)) + '/../lib')
 require 'gli'

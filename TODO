@@ -1,8 +1,24 @@
+Use cases
+
+  * Add activity
+  * Close a day (or days?)
+  * Install
+  * Get a report of work activities
+  * Run some queries for life activities
+
+Tasks
+
 X * schema/migrations
   ! get test env working
   * add activity
 X   - cli
-    - validations (category present, memo present)
+    - round to nearest quarter hour
+    - validations
+      - category present
+      - memo present
+      - duplicate start time
+      - overlapping activity
+    - print error
     - print day after add
     - split over midnight
   * close day
