@@ -22,7 +22,13 @@ X   - populate the database
 /   - should backup and migrate the database
 X * get test env working
   * add activity
+    - ui
+      lifetracker add 9 10 per '#1234 - coding'
+      lifetracker add 9 - sto '#1234 - refactor'
+      lifetracker add 8:45p - sle ''
+      lifetracker add now - sle ''
 X   - cli
+    - print errors
     - round to nearest quarter hour
     - print day after add
   * Revise a day
@@ -36,6 +42,8 @@ X   - cli
   ! 08:45             PER
 
   ! 09:15-09:45 0.5hr PER    Pay bills
+                -----
+                1.0hr
   * Sprint summary
 
 Icebox

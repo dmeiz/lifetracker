@@ -21,6 +21,9 @@ if require File.expand_path('../../config/application',  __FILE__)
   Lifetracker::Application.initialize!
 end
 
+# We configure rails to eastern timezone; make Chronic aware
+Chronic.time_class = Time.zone
+
 #$: << File.expand_path(File.dirname(File.realpath(__FILE__)) + '/../lib')
 require 'gli'
 require 'lifetracker_version'
@@ -64,6 +67,9 @@ desc 'Add an activity'
 command :add do |c|
   c.action do |global,command,options,args|
     start_at, end_at, category, memo = options
+    debugger
+    start_at = Chronic.parse(start_at)
+    end_at = Chronic.parse(end_at)
     Activity.create!(:start_at => start_at, :end_at => end_at, :category => Category.find_by_abbr(category), :memo => memo)
     puts 'Added activity'
     Activity.order(:start_at).all.each {|activity| activity.inspect}
