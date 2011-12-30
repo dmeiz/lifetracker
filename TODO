@@ -1,3 +1,9 @@
+The bare minimum to start using this thing:
+
+  * Need a solid sprint summary
+  * Add activity
+  * Revise day(s)
+
 Production install
 
   rake build
@@ -14,19 +20,31 @@ X   - gem install lifetracker
 X   - database should live in ~/.lifetracker/
 X   - populate the database
 /   - should backup and migrate the database
-X ! get test env working
+X * get test env working
   * add activity
 X   - cli
     - round to nearest quarter hour
+    - print day after add
+  * Revise a day
+
+    PER Personal
+    SLE Sleep
+
+    Start End   Dur   Cat    Memo
+    ----- ----- ----- ---    ------------------
+    08:15 08:45 0.5hr PER    Morning routine
+  ! 08:45             PER
+
+  ! 09:15-09:45 0.5hr PER    Pay bills
+  * Sprint summary
+
+Icebox
+  * get test env working
+    - print error
+    - split over midnight
     - validations
       - category present
       - memo present
       - duplicate start time
       - overlapping activity
-    - print error
-    - print day after add
-    - split over midnight
-  * Close a day (or days?)
-    - show me all days that are still open
-  * Get a report of work activities
   * Run some queries for life activities
