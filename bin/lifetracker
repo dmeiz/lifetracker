@@ -70,6 +70,7 @@ command :add do |c|
     Activity.order(:start_at).all.each {|activity| activity.inspect}
 =end
     puts Rails.env
+    puts Category.count
   end
 end
 
