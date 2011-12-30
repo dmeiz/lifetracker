@@ -1,23 +1,24 @@
-# Ensure we require the local version and not one we might have installed already
-require File.join([File.dirname(__FILE__),'lib','lifetracker_version.rb'])
-spec = Gem::Specification.new do |s| 
-  s.name = 'lifetracker'
-  s.version = Lifetracker::VERSION
-  s.author = 'Your Name Here'
-  s.email = 'your@email.address.com'
-  s.homepage = 'http://your.website.com'
-  s.platform = Gem::Platform::RUBY
-  s.summary = 'A description of your project'
-# Add your other files here if you make them
-  s.files = %w(
-bin/lifetracker
-  )
-  s.require_paths << 'lib'
-  s.has_rdoc = true
-  s.extra_rdoc_files = ['README.rdoc','lifetracker.rdoc']
-  s.rdoc_options << '--title' << 'lifetracker' << '--main' << 'README.rdoc' << '-ri'
-  s.bindir = 'bin'
-  s.executables << 'lifetracker'
-  s.add_development_dependency('rake')
-  s.add_development_dependency('rdoc')
+# -*- encoding: utf-8 -*-
+$:.push File.expand_path("../lib", __FILE__)
+require "lifetracker_version"
+
+Gem::Specification.new do |s|
+  s.name        = "lifetracker"
+  s.version     = Lifetracker::VERSION
+  s.authors     = ["Dan Hensgen"]
+  s.email       = ["dan@methodhead.com"]
+  s.homepage    = ""
+  s.summary     = %q{A commandline tool to track all the hours of the day.}
+  s.description = %q{A commandline tool to track all the hours of the day.}
+
+  s.rubyforge_project = "lifetracker"
+
+  s.files         = `git ls-files`.split("\n")
+  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.require_paths = ["lib"]
+
+  # specify any dependencies here; for example:
+  # s.add_development_dependency "rspec"
+  # s.add_runtime_dependency "rest-client"
 end
