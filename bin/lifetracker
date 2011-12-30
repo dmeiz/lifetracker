@@ -2,6 +2,11 @@
 # 1.9 adds realpath to resolve symlinks; 1.8 doesn't
 # have this method, so we add it so we get resolved symlinks
 # and compatibility
+
+unless File.exists?(File.expand_path '../../.git', __FILE__)
+  ENV['RAILS_ENV'] = 'production'
+end
+
 unless File.respond_to? :realpath
   class File #:nodoc:
     def self.realpath path
@@ -58,10 +63,13 @@ end
 desc 'Add an activity'
 command :add do |c|
   c.action do |global,command,options,args|
+=begin
     start_at, end_at, category, memo = options
     Activity.create!(:start_at => start_at, :end_at => end_at, :category => Category.find_by_abbr(category), :memo => memo)
     puts 'Added activity'
     Activity.order(:start_at).all.each {|activity| activity.inspect}
+=end
+    puts Rails.env
   end
 end
 

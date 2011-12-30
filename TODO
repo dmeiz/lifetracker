@@ -5,7 +5,7 @@ Tasks
 
 X * schema/migrations
   * Install
-    - gem install lifetracker
+X   - gem install lifetracker
     - database should live in ~/.lifetracker/
     - populate the database
     - should backup and migrate the database
