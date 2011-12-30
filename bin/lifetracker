@@ -67,12 +67,26 @@ desc 'Add an activity'
 command :add do |c|
   c.action do |global,command,options,args|
     start_at, end_at, category, memo = options
-    debugger
     start_at = Chronic.parse(start_at)
     end_at = Chronic.parse(end_at)
     Activity.create!(:start_at => start_at, :end_at => end_at, :category => Category.find_by_abbr(category), :memo => memo)
     puts 'Added activity'
     Activity.order(:start_at).all.each {|activity| activity.inspect}
+  end
+end
+
+desc 'Show today\'s activities'
+command :show do |c|
+  c.action do |global,command,options,args|
+    puts <<END
+Start   End     Dur     Cat Memo
+------- ------- ------- --- ------------------
+END
+    Activity.all.each do |activity|
+      puts <<END
+#{activity.start_at.to_s(:time).rjust(7)}  9:15am  0.50hr PER Morning routine
+END
+    end
   end
 end
 

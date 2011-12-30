@@ -21,6 +21,15 @@ X   - database should live in ~/.lifetracker/
 X   - populate the database
 /   - should backup and migrate the database
 X * get test env working
+  * show
+    Start End   Dur   Cat    Memo
+    ------ ----- ----- ---    ------------------
+    08:15a 08:45 0.5hr PER    Morning routine
+  ! 08:45a             PER
+
+  ! 09:15 09:45 0.5hr PER    Pay bills
+                -----
+                1.0hr
   * add activity
     - ui
       lifetracker add 9 10 per '#1234 - coding'
@@ -36,14 +45,6 @@ X   - cli
     PER Personal
     SLE Sleep
 
-    Start End   Dur   Cat    Memo
-    ----- ----- ----- ---    ------------------
-    08:15 08:45 0.5hr PER    Morning routine
-  ! 08:45             PER
-
-  ! 09:15-09:45 0.5hr PER    Pay bills
-                -----
-                1.0hr
   * Sprint summary
 
 Icebox

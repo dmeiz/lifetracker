@@ -3,10 +3,13 @@ require 'test_helper'
 load File.expand_path('../../../bin/lifetracker', __FILE__)
 
 class CliTest < ActiveSupport::TestCase
+  setup do
+    $stdout = StringIO.new
+  end
+
   context 'add' do
     setup do
       @category = Category.create(:name => 'Cat1', :abbr => 'cat1')
-      #$stdout = StringIO.new
       @now = Time.now
       @command = ['add', @now.to_s('%h:%m'), (@now + 1.hour).to_s('%h:%m'), @category.abbr, 'Lifetracker - shoved off']
     end
@@ -28,6 +31,34 @@ class CliTest < ActiveSupport::TestCase
       activity = Activity.last
       assert_equal @now.to_i, activity.start_at.to_i
       assert_equal 1.hour.from_now.to_i, activity.end_at.to_i
+    end
+  end
+
+  context 'show' do
+    setup do
+      @start_at = Time.now
+      @end_at = @start_at + 1.hour
+      @category = Category.create!(:name => 'Cat1', :abbr => 'cat1')
+      @activity = Activity.create!(
+        :start_at => @start_at,
+        :end_at => @end_at,
+        :category => @category,
+        :memo => 'Memo'
+      )
+      @command = ['show']
+    end
+    should 'show today' do
+      GLI.run @command
+expected_text =<<END
+Start   End     Dur     Cat Memo
+------- ------- ------- --- ------------------
+#{@start_at.to_s(:time).rjust(7)}  9:15am  0.50hr PER Morning routine
+END
+=begin
+ 8:15am  9:15am  0.50hr PER Morning routine
+12:45am 12:15pm  3.00hr PER Breakfast
+=end
+      assert_equal expected_text, $stdout.string
     end
   end
 end

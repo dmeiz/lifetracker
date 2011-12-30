@@ -46,3 +46,5 @@ module Lifetracker
     config.assets.version = '1.0'
   end
 end
+
+Time::DATE_FORMATS[:time] = '%I:%m%p'
