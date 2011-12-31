@@ -5,6 +5,7 @@ load File.expand_path('../../../bin/lifetracker', __FILE__)
 class CliTest < ActiveSupport::TestCase
   setup do
     $stdout = StringIO.new
+    ENV['GLI_DEBUG'] = 'true'
   end
 
   context 'add' do
@@ -38,7 +39,7 @@ class CliTest < ActiveSupport::TestCase
     setup do
       @start_at = Time.now
       @end_at = @start_at + 1.hour
-      @category = Category.create!(:name => 'Cat1', :abbr => 'cat1')
+      @category = Category.create!(:name => 'Cat1', :abbr => 'ca1')
       @activity = Activity.create!(
         :start_at => @start_at,
         :end_at => @end_at,
@@ -52,7 +53,9 @@ class CliTest < ActiveSupport::TestCase
 expected_text =<<END
 Start   End     Dur     Cat Memo
 ------- ------- ------- --- ------------------
-#{@start_at.to_s(:time).rjust(7)} #{@end_at.to_s(:time).rjust(7)}  0.50hr PER Morning routine
+#{@activity.start_at.to_s(:time).rjust(7)} #{@activity.end_at.to_s(:time).rjust(7)} #{('%.2f' % @activity.duration_in_hours).rjust(5)}hr #{@activity.category.abbr.upcase} #{@activity.memo}
+------- ------- ------- --- ------------------
+                #{('%.2f' % @activity.duration_in_hours).rjust(5)}hr
 END
 =begin
  8:15am  9:15am  0.50hr PER Morning routine

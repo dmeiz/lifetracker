@@ -47,4 +47,4 @@ module Lifetracker
   end
 end
 
-Time::DATE_FORMATS[:time] = '%I:%m%p'
+Time::DATE_FORMATS[:time] = '%I:%M%p'
