@@ -17,9 +17,16 @@ class CliTest < ActiveSupport::TestCase
 
     should 'add an activity' do
       GLI.run @command
-      assert_equal 1, Activity.count
+
       assert_equal "Added activity\n", $stdout.string
+
+      assert_equal 1, Day.count, 'create day'
+      assert day = Day.last, 'create day'
+      assert_equal @now.to_date.jd, day.dt.jd, 'set dt'
+
+      assert_equal 1, Activity.count
       activity = Activity.last
+      assert_equal day, activity.day
       assert_equal @now.to_i, activity.start_at.to_i
       assert_equal (@now + 1.hour).to_i, activity.end_at.to_i
       assert_equal 'Lifetracker - shoved off', activity.memo

@@ -1,5 +1,6 @@
 class Activity < ActiveRecord::Base
   belongs_to :category
+  belongs_to :day
 
   validates_presence_of :memo, :category
 

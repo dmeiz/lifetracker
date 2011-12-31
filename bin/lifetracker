@@ -69,7 +69,8 @@ command :add do |c|
     start_at, end_at, category, memo = options
     start_at = Chronic.parse(start_at)
     end_at = Chronic.parse(end_at)
-    Activity.create!(:start_at => start_at, :end_at => end_at, :category => Category.find_by_abbr(category), :memo => memo)
+    day = Day.find_or_create_by_dt(start_at.to_date)
+    Activity.create!(:day => day, :start_at => start_at, :end_at => end_at, :category => Category.find_by_abbr(category), :memo => memo)
     puts 'Added activity'
     Activity.order(:start_at).all.each {|activity| activity.inspect}
   end
