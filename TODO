@@ -21,18 +21,45 @@ X   - database should live in ~/.lifetracker/
 X   - populate the database
 /   - should backup and migrate the database
 X * get test env working
-  * show
-    Start End   Dur   Cat    Memo
-    ------ ----- ----- ---    ------------------
-    08:15a 08:45 0.5hr PER    Morning routine
-  ! 08:45a             PER
+  * Edit a day
+    - command line
+      $ lifetracker edit
+      $ lifetracker edit yesterday
+      $ lifetracker edit 12/15
 
-  ! 09:15 09:45 0.5hr PER    Pay bills
-                -----
-                1.0hr
-  * add activity
+    - pseudocode
+      day = Day.find_by_dt
+      write day to tempfile
+      open tempfile in $EDITOR
+      read tempfile
+      if tempfile changed?
+        parse file
+        if valid?
+          update day
+        else
+          write day to tempfile + errors
+      else
+        "no changes"
+
+    - format
+      Start End   Dur   Cat    Memo
+      ------ ----- ----- ---    ------------------
+      08:15a 08:45 0.5hr PER    Morning routine
+      08:45a             PER
+      8 9 per Morning routine
+
+      09:15 09:45 0.5hr PER    Pay bills
+                  -----
+                  1.0hr
+
+    - line breaks when incontinuity
+
+  * Sprint summary
+
+Icebox
+  * Add activity
     - ui
-      lifetracker add 9 10 per '#1234 - coding'
+X     lifetracker add 9 10 per '#1234 - coding'
       lifetracker add 9 - sto '#1234 - refactor'
       lifetracker add 8:45p - sle ''
       lifetracker add now - sle ''
@@ -40,14 +67,6 @@ X   - cli
     - print errors
     - round to nearest quarter hour
     - print day after add
-  * Revise a day
-
-    PER Personal
-    SLE Sleep
-
-  * Sprint summary
-
-Icebox
   * get test env working
     - print error
     - split over midnight
@@ -57,3 +76,4 @@ Icebox
       - duplicate start time
       - overlapping activity
   * Run some queries for life activities
+  * Routines or template days

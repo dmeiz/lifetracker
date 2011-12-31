@@ -27,6 +27,7 @@ Chronic.time_class = Time.zone
 #$: << File.expand_path(File.dirname(File.realpath(__FILE__)) + '/../lib')
 require 'gli'
 require 'lifetracker_version'
+require 'tempfile'
 
 include GLI
 
@@ -73,6 +74,21 @@ command :add do |c|
     Activity.create!(:day => day, :start_at => start_at, :end_at => end_at, :category => Category.find_by_abbr(category), :memo => memo)
     puts 'Added activity'
     Activity.order(:start_at).all.each {|activity| activity.inspect}
+  end
+end
+
+desc 'Edit a day'
+command :edit do |c|
+  c.action do |global,command,options,args|
+    tf = Tempfile.new 'lifetracker'
+    tf.write "blah"
+    tf.close
+
+    system(ENV['EDITOR'], tf.path)
+
+    tf.open
+    edited = tf.read
+    puts edited
   end
 end
 
