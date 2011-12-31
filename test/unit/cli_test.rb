@@ -52,7 +52,7 @@ class CliTest < ActiveSupport::TestCase
 expected_text =<<END
 Start   End     Dur     Cat Memo
 ------- ------- ------- --- ------------------
-#{@start_at.to_s(:time).rjust(7)}  9:15am  0.50hr PER Morning routine
+#{@start_at.to_s(:time).rjust(7)} #{@end_at.to_s(:time).rjust(7)}  0.50hr PER Morning routine
 END
 =begin
  8:15am  9:15am  0.50hr PER Morning routine

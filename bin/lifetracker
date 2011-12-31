@@ -84,7 +84,7 @@ Start   End     Dur     Cat Memo
 END
     Activity.all.each do |activity|
       puts <<END
-#{activity.start_at.to_s(:time).rjust(7)}  9:15am  0.50hr PER Morning routine
+#{activity.start_at.to_s(:time).rjust(7)} #{activity.end_at.to_s(:time).rjust(7)}  0.50hr PER Morning routine
 END
     end
   end
