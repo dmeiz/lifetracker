@@ -29,4 +29,31 @@ END
     # TODO: replace existing entries
     # TODO: report parse error
   end
+
+  context 'to_s' do
+    setup do
+      @start_at = Time.now
+      @end_at = @start_at + 1.hour
+      @category = Category.create!(:name => 'Cat1', :abbr => 'ca1')
+      @activity = Activity.create!(
+        :start_at => @start_at,
+        :end_at => @end_at,
+        :category => @category,
+        :memo => 'Memo'
+      )
+      @day = Day.create!
+      @day.activities << @activity
+    end
+
+    should 'print the day' do
+      expected_text =<<END
+Start   End     Dur     Cat Memo
+------- ------- ------- --- ------------------
+#{@activity.start_at.to_s(:time).rjust(7)} #{@activity.end_at.to_s(:time).rjust(7)} #{('%.2f' % @activity.duration_in_hours).rjust(5)}hr #{@activity.category.abbr.upcase} #{@activity.memo}
+------- ------- ------- --- ------------------
+                #{('%.2f' % @activity.duration_in_hours).rjust(5)}hr
+END
+      assert_equal expected_text, @day.to_s
+    end
+  end
 end

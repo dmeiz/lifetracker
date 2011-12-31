@@ -92,25 +92,4 @@ command :edit do |c|
   end
 end
 
-desc 'Show today\'s activities'
-command :show do |c|
-  c.action do |global,command,options,args|
-    puts <<END
-Start   End     Dur     Cat Memo
-------- ------- ------- --- ------------------
-END
-    total_duration = 0
-    Activity.all.each do |activity|
-      total_duration += activity.duration_in_hours
-      puts <<END
-#{activity.start_at.to_s(:time).rjust(7)} #{activity.end_at.to_s(:time).rjust(7)} #{('%.2f' % activity.duration_in_hours).rjust(5)}hr #{activity.category.abbr.upcase} #{activity.memo}
-END
-    end
-    puts <<END
-------- ------- ------- --- ------------------
-                #{('%.2f' % total_duration).rjust(5)}hr
-END
-  end
-end
-
 exit GLI.run(ARGV) unless Rails.env.test? 

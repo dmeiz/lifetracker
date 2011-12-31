@@ -42,33 +42,4 @@ class CliTest < ActiveSupport::TestCase
     end
   end
 
-  context 'show' do
-    setup do
-      @start_at = Time.now
-      @end_at = @start_at + 1.hour
-      @category = Category.create!(:name => 'Cat1', :abbr => 'ca1')
-      @activity = Activity.create!(
-        :start_at => @start_at,
-        :end_at => @end_at,
-        :category => @category,
-        :memo => 'Memo'
-      )
-      @command = ['show']
-    end
-    should 'show today' do
-      GLI.run @command
-expected_text =<<END
-Start   End     Dur     Cat Memo
-------- ------- ------- --- ------------------
-#{@activity.start_at.to_s(:time).rjust(7)} #{@activity.end_at.to_s(:time).rjust(7)} #{('%.2f' % @activity.duration_in_hours).rjust(5)}hr #{@activity.category.abbr.upcase} #{@activity.memo}
-------- ------- ------- --- ------------------
-                #{('%.2f' % @activity.duration_in_hours).rjust(5)}hr
-END
-=begin
- 8:15am  9:15am  0.50hr PER Morning routine
-12:45am 12:15pm  3.00hr PER Breakfast
-=end
-      assert_equal expected_text, $stdout.string
-    end
-  end
 end
