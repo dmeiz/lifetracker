@@ -80,15 +80,17 @@ end
 desc 'Edit a day'
 command :edit do |c|
   c.action do |global,command,options,args|
+    day = Day.find_or_create_by_dt(Date.today)
     tf = Tempfile.new 'lifetracker'
-    tf.write "blah"
+    
+    tf.write day.to_s
     tf.close
 
     system(ENV['EDITOR'], tf.path)
 
     tf.open
     edited = tf.read
-    puts edited
+    puts day.parse(edited)
   end
 end
 

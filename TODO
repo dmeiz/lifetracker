@@ -28,16 +28,18 @@ X * get test env working
       $ lifetracker edit 12/15
 
     - pseudocode
-      day = Day.find_by_dt
-      write day to tempfile
-      open tempfile in $EDITOR
-      read tempfile
-      if tempfile changed?
-        parse file
-        if valid?
-          update day
-        else
-          write day to tempfile + errors
+      day = Day.find_or_create_by_dt
+      orig_day_text = day_text = day.to_s
+
+      do
+        write day_text
+        open tempfile in $EDITOR
+        day_text = read tempfile
+        activities, errors = parse day_text
+      until valid?
+
+      if orig_day_text != day_text
+        update day(activities)
       else
         "no changes"
 
