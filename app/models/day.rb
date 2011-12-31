@@ -2,7 +2,7 @@ class Day < ActiveRecord::Base
   has_many :activities
 
   def parse(text)
-    activity_lines(text).map {|line| line_to_hash(line)}
+    [activity_lines(text).map {|line| line_to_hash(line)}, nil]
   end
 
   def to_s

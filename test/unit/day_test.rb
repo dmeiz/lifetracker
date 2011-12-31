@@ -20,7 +20,8 @@ END
     end
 
     should 'parse a day' do
-      assert data = @day.parse(@text)
+      data, error = @day.parse(@text)
+      assert data
       assert_equal 2, data.length
       assert_equal({:start_at => Chronic.parse('8:15am'), :end_at => Chronic.parse('8:45am'), :category => @category, :memo => 'Morning routine'}, data.first)
       assert_equal({:start_at => Chronic.parse('8:45am'), :end_at => Chronic.parse('9:00am'), :category => @category, :memo => 'Morning routine'}, data.last)
