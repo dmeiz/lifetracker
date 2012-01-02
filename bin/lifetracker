@@ -104,7 +104,7 @@ command :edit do |c|
 
     if orig_day_text != day_text
       day.update_activities(activities)
-      puts 'Updated day'
+      puts "Updated day\n\n#{day.to_s}"
     else
       puts "No changes"
     end

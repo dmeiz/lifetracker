@@ -14,6 +14,20 @@ class Day < ActiveRecord::Base
     end
   end
 
+=begin
+Sunday, Jan 1, 2012
+
+per       Personal
+prj       Project
+prj:1234    1234
+sle       Sleep
+
+Start   End     Dur     Cat Memo
+------- ------- ------- --- ------------------
+
+------- ------- ------- --- ------------------
+                 0.00hr
+=end
   def to_s
     s = <<END
 Start   End     Dur     Cat Memo
@@ -43,7 +57,7 @@ END
     lines = lines.drop_while {|line| line !~ /^[- ]+$/ }
     lines = lines.drop(1)
     lines = lines.take_while {|line| line !~ /^[- ]+$/ }
-    lines
+    lines.reject {|line| line.blank?}
   end
 
   # Parse line into a Activity-compatible hash.

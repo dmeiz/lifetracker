@@ -55,8 +55,8 @@ class CliTest < ActiveSupport::TestCase
     should 'update a day' do
       GLI.run @command
 
-#      assert_equal "Updated day\n", $stdout.string
       @day.reload
+      assert_equal "Updated day\n\n#{@day}", $stdout.string
       assert_equal 1, @day.activities.count
     end
   end
