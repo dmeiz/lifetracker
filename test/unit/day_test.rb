@@ -40,8 +40,6 @@ END
       data, error = @day.parse(@text)
       assert_equal 2, data.length
     end
-
-    # TODO: ignore blank lines
   end
 
   context 'to_s' do
@@ -57,20 +55,15 @@ END
         :memo => 'Memo'
       )
       @day.activities << @activity
-      @activity2 = Activity.create!(
+
+      @yesterday = Day.create(:dt => (Date.today - 1.day))
+      @yesterday_activity = Activity.create!(
         :start_at => @start_at,
         :end_at => @end_at,
         :category => @category,
         :memo => 'Memo'
       )
-      @day.activities << @activity2
-      @activity3 = Activity.create!(
-        :start_at => @start_at,
-        :end_at => @end_at,
-        :category => @category,
-        :memo => 'Memo'
-      )
-      @day.activities << @activity3
+      @yesterday.activities << @yesterday_activity
     end
 
     should 'print the day' do
@@ -78,10 +71,8 @@ END
 Start   End     Dur     Cat Memo
 ------- ------- ------- --- ------------------
 #{@activity.start_at.to_s(:time).rjust(7)} #{@activity.end_at.to_s(:time).rjust(7)} #{('%.2f' % @activity.duration_in_hours).rjust(5)}hr #{@activity.category.abbr.upcase} #{@activity.memo}
-#{@activity2.start_at.to_s(:time).rjust(7)} #{@activity2.end_at.to_s(:time).rjust(7)} #{('%.2f' % @activity2.duration_in_hours).rjust(5)}hr #{@activity2.category.abbr.upcase} #{@activity2.memo}
-#{@activity3.start_at.to_s(:time).rjust(7)} #{@activity3.end_at.to_s(:time).rjust(7)} #{('%.2f' % @activity3.duration_in_hours).rjust(5)}hr #{@activity3.category.abbr.upcase} #{@activity3.memo}
 ------- ------- ------- --- ------------------
-                #{('%.2f' % (3)).rjust(5)}hr
+                #{('%.2f' % @activity.duration_in_hours).rjust(5)}hr
 END
       assert_equal expected_text, @day.to_s
     end

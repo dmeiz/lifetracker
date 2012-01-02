@@ -34,7 +34,7 @@ Start   End     Dur     Cat Memo
 ------- ------- ------- --- ------------------
 END
     total_duration = 0
-    Activity.all.each do |activity|
+    self.activities.each do |activity|
       total_duration += activity.duration_in_hours
       s += <<END
 #{activity.start_at.to_s(:time).rjust(7)} #{activity.end_at.to_s(:time).rjust(7)} #{('%.2f' % activity.duration_in_hours).rjust(5)}hr #{activity.category.abbr.upcase} #{activity.memo}
