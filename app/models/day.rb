@@ -30,6 +30,8 @@ Start   End     Dur     Cat Memo
 =end
   def to_s
     s = <<END
+#{self.dt.to_s(:date)}
+
 Start   End     Dur     Cat Memo
 ------- ------- ------- --- ------------------
 END

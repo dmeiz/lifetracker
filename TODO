@@ -19,11 +19,11 @@ X   - database should live in ~/.lifetracker/
 X   - populate the database
 /   - should backup and migrate the database
 X * get test env working
-  * Edit a day
+X * Edit a day
 X   - command line
 X   - format
-    - edit specific day
-      lifetracker edit 12/1
+X   - edit specific day
+X     lifetracker edit 12/1
   * render date and categories in to_s
   * BUG: activities are not deleted on edit
 

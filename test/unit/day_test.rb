@@ -47,7 +47,7 @@ END
       @start_at = Time.now
       @end_at = @start_at + 1.hour
       @category = Category.create!(:name => 'Cat1', :abbr => 'ca1')
-      @day = Day.create!
+      @day = Day.create!(:dt => Date.today)
       @activity = Activity.create!(
         :start_at => @start_at,
         :end_at => @end_at,
@@ -68,6 +68,8 @@ END
 
     should 'print the day' do
       expected_text =<<END
+#{@day.dt.to_s(:date)}
+
 Start   End     Dur     Cat Memo
 ------- ------- ------- --- ------------------
 #{@activity.start_at.to_s(:time).rjust(7)} #{@activity.end_at.to_s(:time).rjust(7)} #{('%.2f' % @activity.duration_in_hours).rjust(5)}hr #{@activity.category.abbr.upcase} #{@activity.memo}
