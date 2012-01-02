@@ -80,15 +80,13 @@ end
 desc 'Edit a day'
 command :edit do |c|
   c.action do |global,command,options,args|
-=begin
-    day = Day.find_or_create_by_dt(Date.today)
-    tf.close
+    day =
+      if options[0]
+        Day.find_or_create_by_dt(Chronic.parse(options[0]).to_date)
+      else
+        Day.find_or_create_by_dt(Date.today)
+      end
 
-
-    tf.open
-    edited = tf.read
-=end
-    day = Day.find_or_create_by_dt(Date.today)
     orig_day_text = day_text = day.to_s
 
     tf = Tempfile.new 'lifetracker'
