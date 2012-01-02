@@ -1,0 +1,3 @@
+Start  End   Dur   Cat    Memo
+------ ----- ----- ---    ------------------
+08:15a 08:45a 0.5hr cat    Morning routine

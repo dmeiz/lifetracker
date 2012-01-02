@@ -91,6 +91,7 @@ command :edit do |c|
     tf.open
     edited = tf.read
     puts day.parse(edited)
+    puts 'Updated day'
   end
 end
 

@@ -6,6 +6,7 @@ class CliTest < ActiveSupport::TestCase
   setup do
     $stdout = StringIO.new
     ENV['GLI_DEBUG'] = 'true'
+    ENV['EDITOR'] = 'test/editor.sh'
   end
 
   context 'add' do
@@ -42,4 +43,21 @@ class CliTest < ActiveSupport::TestCase
     end
   end
 
+  context 'edit' do
+    setup do
+      @now = Time.now
+      @category = Category.create!(:name => 'Cat', :abbr => 'cat')
+      @day = Day.create!
+      @command = ['edit']
+      ENV['LIFETRACKER_EDITOR_OUTPUT'] = 'test/new_activity.txt'
+    end
+
+    should 'update a day' do
+      GLI.run @command
+
+      assert_equal "Updated day\n", $stdout.string
+      @day.reload
+      assert_equal 1, @day.activities.count
+    end
+  end
 end
