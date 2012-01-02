@@ -5,6 +5,15 @@ class Day < ActiveRecord::Base
     [activity_lines(text).map {|line| line_to_hash(line)}, nil]
   end
 
+  # Replaces this days activities with those specified by attributes in arr.
+  #
+  def update_activities(arr)
+    self.activities.clear
+    arr.each do |atts|
+      self.activities.create!(atts)
+    end
+  end
+
   def to_s
     s = <<END
 Start   End     Dur     Cat Memo
@@ -26,7 +35,8 @@ END
 
   private
 
-  # Strip text of anything above and below the separator lines.
+  # Returns array of lines of activity data, ignoring text before and after
+  # separator lines.
   # 
   def activity_lines(text)
     lines = text.split("\n")
@@ -36,6 +46,8 @@ END
     lines
   end
 
+  # Parse line into a Activity-compatible hash.
+  #
   def line_to_hash(line)
     tokens = line.split(/\s+/)
     {

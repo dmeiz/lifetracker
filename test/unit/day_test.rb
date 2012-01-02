@@ -56,5 +56,38 @@ Start   End     Dur     Cat Memo
 END
       assert_equal expected_text, @day.to_s
     end
+
+    context 'update_activities' do
+      setup do
+        @start_at = Time.now
+        @end_at = @start_at + 1.hour
+        @category = Category.create!(:name => 'Cat1', :abbr => 'ca1')
+        @category2 = Category.create!(:name => 'Cat2', :abbr => 'ca2')
+        @activity = Activity.create!(
+          :start_at => @start_at,
+          :end_at => @end_at,
+          :category => @category,
+          :memo => 'Memo'
+        )
+        @day = Day.create!
+        @day.activities << @activity
+
+        @activity_data = [
+          {:start_at => @end_at, :end_at => @end_at + 1.hour, :category => @category2, :memo => 'Changed'}
+        ]
+      end
+
+      should 'accept a hash of activity data and update the day' do
+        @day.update_activities(@activity_data)
+
+        @day.reload
+        assert_equal 1, @day.activities.count
+        activity = @day.activities.first
+        assert_equal @activity_data.first[:start_at].to_i, activity.start_at.to_i
+        assert_equal @activity_data.first[:end_at].to_i, activity.end_at.to_i
+        assert_equal @activity_data.first[:category], activity.category
+        assert_equal @activity_data.first[:memo], activity.memo
+      end
+    end
   end
 end
