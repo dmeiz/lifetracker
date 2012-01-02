@@ -79,6 +79,22 @@ END
       assert_equal expected_text, @day.to_s
     end
 
+    should 'include categories if requested' do
+      expected_text =<<END
+#{@day.dt.to_s(:date)}
+
+#{@category.abbr} #{@category.name}
+
+Start   End     Dur     Cat Memo
+------- ------- ------- --- ------------------
+#{@activity.start_at.to_s(:time).rjust(7)} #{@activity.end_at.to_s(:time).rjust(7)} #{('%.2f' % @activity.duration_in_hours).rjust(5)}hr #{@activity.category.abbr.upcase} #{@activity.memo}
+------- ------- ------- --- ------------------
+                #{('%.2f' % @activity.duration_in_hours).rjust(5)}hr
+END
+      assert_equal expected_text, @day.to_s(:show_categories => true)
+      
+    end
+
     context 'update_activities' do
       setup do
         @start_at = Time.now

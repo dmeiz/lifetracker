@@ -52,6 +52,8 @@ class CliTest < ActiveSupport::TestCase
       @command = ['edit']
     end
 
+    # TODO: verify text written to tempfile, including categories
+
     should 'update a day' do
       GLI.run @command
 

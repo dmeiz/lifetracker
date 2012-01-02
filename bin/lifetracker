@@ -87,7 +87,7 @@ command :edit do |c|
         Day.find_or_create_by_dt(Date.today)
       end
 
-    orig_day_text = day_text = day.to_s
+    orig_day_text = day_text = day.to_s(:show_categories => true)
 
     tf = Tempfile.new 'lifetracker'
     tf.write day_text

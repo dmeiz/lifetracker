@@ -28,10 +28,21 @@ Start   End     Dur     Cat Memo
 ------- ------- ------- --- ------------------
                  0.00hr
 =end
-  def to_s
+  def to_s(options = {})
     s = <<END
 #{self.dt.to_s(:date)}
 
+END
+
+    if options[:show_categories]
+      Category.order(:abbr).all.each do |category|
+        s += <<END
+#{category.abbr.ljust(3)} #{category.name}
+END
+      end
+      s += "\n"
+    end
+    s += <<END
 Start   End     Dur     Cat Memo
 ------- ------- ------- --- ------------------
 END
