@@ -1,12 +1,10 @@
 The bare minimum to start using this thing:
 
-  * Need a solid sprint summary
-  * Add activity
-  * Revise day(s)
+  * Edit day
 
 Production install
 
-  rake build
+  raknstall pkg/lifetracker-0.0.1.gem:e build
   gem install pkg/lifetracker-0.0.1.gem
   cd ~/.rbenv/versions/ree-1.8.7-2011.03/lib/ruby/gems/1.8/gems/lifetracker-0.0.1 # or maybe just do this from working dir?
   RAILS_ENV=production rake db:setup
@@ -22,11 +20,39 @@ X   - populate the database
 /   - should backup and migrate the database
 X * get test env working
   * Edit a day
-    - command line
-      $ lifetracker edit
-      $ lifetracker edit yesterday
-      $ lifetracker edit 12/15
+X   - command line
+X   - format
+    - edit specific day
+      lifetracker edit 12/1
+  * render date and categories in to_s
+  * BUG: activities are not deleted on edit
 
+Backlog
+  * Sprint summary
+  * Add activity
+    - ui
+X     lifetracker add 9 10 per '#1234 - coding'
+      lifetracker add 9 - sto '#1234 - refactor'
+      lifetracker add 8:45p - sle ''
+      lifetracker add now - sle ''
+X   - cli
+    - print errors
+    - round to nearest quarter hour
+    - print day after add
+  * Display day
+    - line breaks when incontinuity
+  * get test env working
+    - print error
+    - split over midnight
+    - validations
+      - category present
+      - memo present
+      - duplicate start time
+      - overlapping activity
+  * Run some queries for life activities
+  * Routines or template days
+  * Edit day
+    - validate day, abort edit
     - pseudocode
       day = Day.find_or_create_by_dt
       orig_day_text = day_text = day.to_s
@@ -43,39 +69,3 @@ X * get test env working
       else
         "no changes"
 
-    - format
-      Start End   Dur   Cat    Memo
-      ------ ----- ----- ---    ------------------
-      08:15a 08:45 0.5hr PER    Morning routine
-      08:45a             PER
-      8 9 per Morning routine
-
-      09:15 09:45 0.5hr PER    Pay bills
-                  -----
-                  1.0hr
-
-    - line breaks when incontinuity
-
-  * Sprint summary
-
-Icebox
-  * Add activity
-    - ui
-X     lifetracker add 9 10 per '#1234 - coding'
-      lifetracker add 9 - sto '#1234 - refactor'
-      lifetracker add 8:45p - sle ''
-      lifetracker add now - sle ''
-X   - cli
-    - print errors
-    - round to nearest quarter hour
-    - print day after add
-  * get test env working
-    - print error
-    - split over midnight
-    - validations
-      - category present
-      - memo present
-      - duplicate start time
-      - overlapping activity
-  * Run some queries for life activities
-  * Routines or template days
