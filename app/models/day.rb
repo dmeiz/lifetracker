@@ -8,7 +8,7 @@ class Day < ActiveRecord::Base
   # Replaces this days activities with those specified by attributes in arr.
   #
   def update_activities(arr)
-    self.activities.clear
+    self.activities.destroy_all
     arr.each do |atts|
       self.activities.create!(atts)
     end
