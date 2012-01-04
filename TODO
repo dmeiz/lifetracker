@@ -2,6 +2,16 @@ The bare minimum to start using this thing:
 
   * Edit day
 
+Thoughts on new features:
+
+  ! BUG: Tweak midnight end_ats to the right day
+  ! BUG: Activities start_at and end_at getting current date, not date of the day they belong to
+  * Template day so I don't have to type in all the usual stuff
+  * It's helpful to start an activity so I can better remember what I worked on
+  * When entering activities, it would safe time if I only had to start time and the end time for the previous task would automatically be set
+  * When entering activities, it would be nice to not have to enter anything for hte duration
+  * Justify category in day.to_s
+
 Production install
 
   raknstall pkg/lifetracker-0.0.1.gem:e build
@@ -25,7 +35,7 @@ X   - format
 X   - edit specific day
 X     lifetracker edit 12/1
 X * render date and categories in to_s
-  * BUG: activities are not deleted on edit
+X * BUG: activities are not deleted on edit
 
 Backlog
   * Sprint summary
