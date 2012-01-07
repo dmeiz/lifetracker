@@ -108,7 +108,7 @@ END
         :category => @category,
         :memo => 'Memo'
       )
-      @day = Day.create!
+      @day = Day.create!(:dt => Date.today)
       @day.activities << @activity
 
       @activity_data = [
@@ -119,7 +119,6 @@ END
     should 'accept a hash of activity data and update the day' do
       @day.update_activities(@activity_data)
 
-      @day.reload
       assert_equal 1, Activity.count
       assert_equal 1, @day.activities.count
       activity = @day.activities.first
@@ -127,6 +126,16 @@ END
       assert_equal @activity_data.first[:end_at].to_i, activity.end_at.to_i
       assert_equal @activity_data.first[:category], activity.category
       assert_equal @activity_data.first[:memo], activity.memo
+    end
+
+    should 'ensure that date part of start_at and end_at are the same as day' do
+      @activity_data.first[:start_at] = @start_at - 1.day
+      @activity_data.first[:end_at] = @end_at - 1.day
+      @day.update_activities(@activity_data)
+
+      @day.reload
+      assert_equal @start_at.to_i, @day.activities.first[:start_at].to_i
+      assert_equal @end_at.to_i, @day.activities.first[:end_at].to_i
     end
   end
 end

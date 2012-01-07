@@ -10,24 +10,13 @@ class Day < ActiveRecord::Base
   def update_activities(arr)
     self.activities.destroy_all
     arr.each do |atts|
-      self.activities.create!(atts)
+      self.activities.create!(atts.merge({
+        :start_at => sync_time(atts[:start_at]),
+        :end_at => sync_time(atts[:end_at])
+      }))
     end
   end
 
-=begin
-Sunday, Jan 1, 2012
-
-per       Personal
-prj       Project
-prj:1234    1234
-sle       Sleep
-
-Start   End     Dur     Cat Memo
-------- ------- ------- --- ------------------
-
-------- ------- ------- --- ------------------
-                 0.00hr
-=end
   def to_s(options = {})
     s = <<END
 #{self.dt.to_s(:date)}
@@ -83,5 +72,11 @@ END
       :category => Category.find_by_abbr(tokens[3].downcase),
       :memo => tokens[4..-1].join(' ')
     }
+  end
+
+  # Ensure time is on the same date as self.
+  #
+  def sync_time(time)
+    Time.local(self.dt.year, self.dt.mon, self.dt.mday, time.hour, time.min, time.sec)
   end
 end

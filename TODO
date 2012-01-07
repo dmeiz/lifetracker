@@ -16,36 +16,11 @@ X * render date and categories in to_s
 X * BUG: activities are not deleted on edit
 X ! BUG: Tweak midnight end_ats to the right day
   ! BUG: Activities start_at and end_at getting current date, not date of the day they belong to
+  * Sprint summary
 
 Backlog
-  * Template day so I don't have to type in all the usual stuff
-  * It's helpful to start an activity so I can better remember what I worked on
-  * When entering activities, it would safe time if I only had to start time and the end time for the previous task would automatically be set
-  * When entering activities, it would be nice to not have to enter anything for hte duration
   * Justify category in day.to_s
-  * Sprint summary
-  * Add activity
-    - ui
-X     lifetracker add 9 10 per '#1234 - coding'
-      lifetracker add 9 - sto '#1234 - refactor'
-      lifetracker add 8:45p - sle ''
-      lifetracker add now - sle ''
-X   - cli
-    - print errors
-    - round to nearest quarter hour
-    - print day after add
-  * Display day
-    - line breaks when incontinuity
-  * get test env working
-    - print error
-    - split over midnight
-    - validations
-      - category present
-      - memo present
-      - duplicate start time
-      - overlapping activity
-  * Run some queries for life activities
-  * Routines or template days
+  * Template day so I don't have to type in all the usual stuff
   * Edit day
     - validate day, abort edit
     - pseudocode
@@ -63,6 +38,34 @@ X   - cli
         update day(activities)
       else
         "no changes"
+  * Milestones
+  * Sanity check; how do I know if there are any days past that are incomplete?
+  * It's helpful to start an activity so I can better remember what I worked on
+  * When entering activities, it would safe time if I only had to start time and the end time for the previous task would automatically be set
+  * When entering activities, it would be nice to not have to enter anything for hte duration
+  * Add activity
+    - ui
+X     lifetracker add 9 10 per '#1234 - coding'
+      lifetracker add 9 - sto '#1234 - refactor'
+      lifetracker add 8:45p - sle ''
+      lifetracker add now - sle ''
+X   - cli
+    - print errors
+    - round to nearest quarter hour
+    - print day after add
+    - split over midnight
+  * Display day
+    - line breaks when incontinuity
+  * Day validations
+    - dt present
+  * Activity validations
+    - validations
+      - category present
+      - memo present
+      - duplicate start time
+      - overlapping activity
+
+  * Run some queries for life activities
 
 Production install
 
