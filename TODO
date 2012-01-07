@@ -58,6 +58,7 @@ X   - cli
     - line breaks when incontinuity
   * Day validations
     - dt present
+    - activity date doesn't match day dt?
   * Activity validations
     - validations
       - category present
