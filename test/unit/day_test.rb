@@ -45,7 +45,7 @@ END
       @day.activities << @activity
 
       @activity_data = [
-        {:start_at => @end_at, :end_at => @end_at + 1.hour, :category => @category2, :memo => 'Changed'}
+        {:start_at => @start_at - 1.hour, :end_at => @end_at - 1.hour, :category => @category2, :memo => 'Changed'}
       ]
     end
 

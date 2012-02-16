@@ -2,7 +2,7 @@ class Day < ActiveRecord::Base
   has_many :activities
 
   def initialize_with_activity_text(text)
-    self.update_activities(self.parse(text).first)
+    self.update_activities(DayFormat.parse(text).first)
   end
 
   # Replaces this days activities with those specified by attributes in arr.
