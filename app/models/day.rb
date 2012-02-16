@@ -5,10 +5,6 @@ class Day < ActiveRecord::Base
     self.update_activities(self.parse(text).first)
   end
 
-  def parse(text)
-    [activity_lines(text).map {|line| line_to_hash(line)}, nil]
-  end
-
   # Replaces this days activities with those specified by attributes in arr.
   #
   def update_activities(arr)
@@ -54,29 +50,6 @@ END
   end
 
   private
-
-  # Returns array of lines of activity data, ignoring text before and after
-  # separator lines.
-  # 
-  def activity_lines(text)
-    lines = text.split("\n")
-    lines = lines.drop_while {|line| line !~ /^[- ]+$/ }
-    lines = lines.drop(1)
-    lines = lines.take_while {|line| line !~ /^[- ]+$/ }
-    lines.reject {|line| line.blank?}
-  end
-
-  # Parse line into a Activity-compatible hash.
-  #
-  def line_to_hash(line)
-    tokens = line.split(/\s+/)
-    {
-      :start_at => Chronic.parse(tokens[0]),
-      :end_at => Chronic.parse(tokens[1]),
-      :category => Category.find_by_abbr(tokens[3].downcase),
-      :memo => tokens[4..-1].join(' ')
-    }
-  end
 
   # Ensure time is on the same date as self.
   #
