@@ -17,38 +17,6 @@ class Day < ActiveRecord::Base
     end
   end
 
-  def to_s(options = {})
-    s = <<END
-#{self.dt.to_s(:date)}
-
-END
-
-    if options[:show_categories]
-      Category.order(:abbr).all.each do |category|
-        s += <<END
-#{category.abbr.ljust(3)} #{category.name}
-END
-      end
-      s += "\n"
-    end
-    s += <<END
-Start   End     Dur     Cat Memo
-------- ------- ------- --- ------------------
-END
-    total_duration = 0
-    self.activities.each do |activity|
-      total_duration += activity.duration_in_hours
-      s += <<END
-#{activity.start_at.to_s(:time).rjust(7)} #{activity.end_at.to_s(:time).rjust(7)} #{('%.2f' % activity.duration_in_hours).rjust(5)}hr #{activity.category.abbr.upcase} #{activity.memo}
-END
-    end
-    s += <<END
-------- ------- ------- --- ------------------
-                #{('%.2f' % total_duration).rjust(5)}hr
-END
-    s
-  end
-
   private
 
   # Ensure time is on the same date as self.
