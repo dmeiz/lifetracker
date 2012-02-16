@@ -79,6 +79,30 @@ END
       assert_equal expected_text, DayFormat.format(@day)
     end
 
+    should 'show gaps in activities' do
+      @activity2 = Activity.create!(
+        :start_at => @end_at + 1.hour,
+        :end_at => @end_at + 2.hours,
+        :category => @category,
+        :memo => 'Memo'
+      )
+      @day.activities << @activity2
+
+      expected_text =<<END
+#{@day.dt.to_s(:date)}
+
+Start   End     Dur     Cat Memo
+------- ------- ------- --- ------------------
+#{@activity.start_at.to_s(:time).rjust(7)} #{@activity.end_at.to_s(:time).rjust(7)} #{('%.2f' % @activity.duration_in_hours).rjust(5)}hr #{@activity.category.abbr.upcase} #{@activity.memo}
+
+#{@activity2.start_at.to_s(:time).rjust(7)} #{@activity2.end_at.to_s(:time).rjust(7)} #{('%.2f' % @activity2.duration_in_hours).rjust(5)}hr #{@activity2.category.abbr.upcase} #{@activity2.memo}
+------- ------- ------- --- ------------------
+                #{('%.2f' % (@activity.duration_in_hours + @activity2.duration_in_hours)).rjust(5)}hr
+END
+
+      assert_equal expected_text, DayFormat.format(@day)
+    end
+
     should 'include categories if requested' do
       expected_text =<<END
 #{@day.dt.to_s(:date)}

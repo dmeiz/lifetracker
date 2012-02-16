@@ -18,6 +18,9 @@ X ! BUG: Tweak midnight end_ats to the right day
 X ! BUG: Activities start_at and end_at getting current date, not date of the day they belong to
 X * Sprint summary
 X * Template day so I don't have to type in all the usual stuff
+X * Display line breaks when incontinuity
+  * Justify category in day.to_s
+    - validate length of cat
 
 Backlog
   * Easier report access
@@ -27,7 +30,6 @@ Backlog
       prints sprint summary for sprint ending on 2/14/2012
     $ lifetracker report incomplete_days
       prints days that don't have 24 hours worth of activity
-  * Justify category in day.to_s
   * Wrap or clip long memos
   * Edit day
     - validate day, abort edit
@@ -52,7 +54,6 @@ Backlog
   * When entering activities, it would safe time if I only had to start time and the end time for the previous task would automatically be set
   * When entering activities, it would be nice to not have to enter anything for hte duration
   * Run some queries for life activities
-  * Display line breaks when incontinuity
   * Validations
     - Day validations
       - dt present

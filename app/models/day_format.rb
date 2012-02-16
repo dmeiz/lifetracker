@@ -22,8 +22,11 @@ Start   End     Dur     Cat Memo
 ------- ------- ------- --- ------------------
 END
     total_duration = 0
-    day.activities.each do |activity|
+    day.activities.each_with_index do |activity, i|
       total_duration += activity.duration_in_hours
+      if (i > 0) && (day.activities[i - 1].end_at != activity.start_at)
+        s += "\n"
+      end
       s += <<END
 #{activity.start_at.to_s(:time).rjust(7)} #{activity.end_at.to_s(:time).rjust(7)} #{('%.2f' % activity.duration_in_hours).rjust(5)}hr #{activity.category.abbr.upcase} #{activity.memo}
 END
