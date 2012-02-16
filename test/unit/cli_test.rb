@@ -50,11 +50,15 @@ class CliTest < ActiveSupport::TestCase
       @day = Day.create(:dt => Date.today)
       ENV['LIFETRACKER_EDITOR_OUTPUT'] = 'test/new_activity.txt'
       @command = ['edit']
+
+      Lifetracker::Settings[:dot_dir] = 'tmp/dot_dir'
+      #rm_rf(Lifetracker::Settings[:dot_dir])
+      #mkdir_p(Lifetracker::Settings[:dot_dir])
+
+      @temp_file = Tempfile.new 'lifetracker'
     end
 
-    # TODO: verify text written to tempfile, including categories
-
-    should 'update a day' do
+    should 'update today' do
       GLI.run @command
 
       @day.reload
@@ -72,5 +76,29 @@ class CliTest < ActiveSupport::TestCase
       assert_equal "Updated day\n\n#{yesterday}", $stdout.string
       assert_equal 1, yesterday.activities.count
     end
+
+    should 'use default_activity.txt file if available' do
+      ENV['EDITOR'] = 'test/null_editor.sh'
+      rm_rf(Lifetracker::Settings[:dot_dir])
+      mkdir(Lifetracker::Settings[:dot_dir])
+      File.open(File.join(Lifetracker::Settings[:dot_dir], 'default_activity.txt'), 'w') {|f| f.write(DEFAULT_ACTIVITY_TEXT)}
+      
+      @command = ['edit', 'yesterday']
+
+      GLI.run @command
+
+      yesterday = Day.find_by_dt(Date.today - 1.day)
+      assert_equal "No changes\n", $stdout.string
+      assert_equal 1, yesterday.activities.count
+      assert_equal 'Breakfast', yesterday.activities.first.memo
+    end
   end
+
+  DEFAULT_ACTIVITY_TEXT = <<END
+Start End   Dur   Cat    Memo
+------ ----- ----- ---    ------------------
+08:15a 08:45a 0.5hr cat    Breakfast
+------ ----- ----- ---    ------------------
+END
+
 end

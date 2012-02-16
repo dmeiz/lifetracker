@@ -1,6 +1,34 @@
 require 'test_helper'
 
 class DayTest < ActiveSupport::TestCase
+
+  context 'initialize_with_activity_text' do
+    setup do
+      @category = Category.create(:abbr => 'per')
+      @day = Day.create(:dt => Date.today)
+      @text =<<END
+Start End   Dur   Cat    Memo
+------ ----- ----- ---    ------------------
+08:15a 08:45a 0.5hr PER    Breakfast
+08:45a 9     0.5hr PER    Commute
+------ ----- ----- ---    ------------------
+END
+    end
+
+    should 'initialize a day' do
+      @day.initialize_with_activity_text(@text)
+
+      @day.reload
+      assert_equal 2, @day.activities.count
+
+      activity = @day.activities[0]
+      assert_equal 'Breakfast', activity.memo
+
+      activity = @day.activities[1]
+      assert_equal 'Commute', activity.memo
+    end
+  end
+
   context 'parse' do
     setup do
       @category = Category.create(:abbr => 'per')

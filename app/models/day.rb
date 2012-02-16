@@ -1,6 +1,10 @@
 class Day < ActiveRecord::Base
   has_many :activities
 
+  def initialize_with_activity_text(text)
+    self.update_activities(self.parse(text).first)
+  end
+
   def parse(text)
     [activity_lines(text).map {|line| line_to_hash(line)}, nil]
   end

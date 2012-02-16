@@ -80,12 +80,23 @@ end
 desc 'Edit a day'
 command :edit do |c|
   c.action do |global,command,options,args|
-    day =
+    date = 
       if options[0]
-        Day.find_or_create_by_dt(Chronic.parse(options[0]).to_date)
+        Chronic.parse(options[0]).to_date
       else
-        Day.find_or_create_by_dt(Date.today)
+        Date.today
       end
+
+    unless day = Day.find_by_dt(date)
+      day = Day.create(:dt => date)
+
+      default_activity_text_path = File.join(Lifetracker::Settings[:dot_dir], 'default_activity.txt')
+      if File.exists?(default_activity_text_path)
+        day.initialize_with_activity_text(File.read(default_activity_text_path))
+      end
+
+      day.save!
+    end
 
     orig_day_text = day_text = day.to_s(:show_categories => true)
 

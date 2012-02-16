@@ -37,3 +37,5 @@ Lifetracker::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 end
+
+Lifetracker::Settings[:dot_dir] = 'tmp/dot_dir'
