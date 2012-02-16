@@ -98,7 +98,7 @@ command :edit do |c|
       day.save!
     end
 
-    orig_day_text = day_text = day.to_s(:show_categories => true)
+    orig_day_text = day_text = DayFormat.format(day, :show_categories => true)
 
     tf = Tempfile.new 'lifetracker'
     tf.write day_text
@@ -108,12 +108,12 @@ command :edit do |c|
 
     tf.open
     day_text = tf.read
-    activities, errors = day.parse(day_text)
+    activities, errors = DayFormat.parse(day_text)
 #      until errors.empty?
 
     if orig_day_text != day_text
       day.update_activities(activities)
-      puts "Updated day\n\n#{day.to_s}"
+      puts "Updated day\n\n#{DayFormat.format(day)}"
     else
       puts "No changes"
     end

@@ -62,7 +62,7 @@ class CliTest < ActiveSupport::TestCase
       GLI.run @command
 
       @day.reload
-      assert_equal "Updated day\n\n#{@day}", $stdout.string
+      assert_equal "Updated day\n\n#{DayFormat.format(@day)}", $stdout.string
       assert_equal 1, @day.activities.count
     end
 
@@ -73,7 +73,7 @@ class CliTest < ActiveSupport::TestCase
       @day.reload
       assert_equal 0, @day.activities.count, 'don\'t update today'
       yesterday = Day.find_by_dt(Date.today - 1.day)
-      assert_equal "Updated day\n\n#{yesterday}", $stdout.string
+      assert_equal "Updated day\n\n#{DayFormat.format(yesterday)}", $stdout.string
       assert_equal 1, yesterday.activities.count
     end
 
