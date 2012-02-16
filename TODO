@@ -17,9 +17,9 @@ X * BUG: activities are not deleted on edit
 X ! BUG: Tweak midnight end_ats to the right day
 X ! BUG: Activities start_at and end_at getting current date, not date of the day they belong to
 X * Sprint summary
+X * Template day so I don't have to type in all the usual stuff
 
 Backlog
-  * Template day so I don't have to type in all the usual stuff
   * Easier report access
     $ lifetracker report
       prints list of reports
