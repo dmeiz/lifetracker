@@ -12,8 +12,8 @@ inner join
   days d on
   a.day_id = d.id
 where
-  d.dt >= '2012-02-01' and
-  d.dt <= '2012-02-14';
+  d.dt >= '2012-02-15' and
+  d.dt <= '2012-02-28';
 
 -- Report total work hours for the sprint
 --
@@ -28,8 +28,8 @@ inner join
   days d on
   a.day_id = d.id
 where
-  d.dt >= '2012-02-01' and
-  d.dt <= '2012-02-14' and
+  d.dt >= '2012-02-15' and
+  d.dt <= '2012-02-28' and
   c.abbr in ('un', 'sto', 'oh', 'bug', 'sm');
 
 -- Print hours per work category
@@ -46,8 +46,8 @@ inner join
   days d on
   a.day_id = d.id
 where
-  d.dt >= '2012-02-01' and
-  d.dt <= '2012-02-14' and
+  d.dt >= '2012-02-15' and
+  d.dt <= '2012-02-28' and
   c.abbr in ('un', 'sto', 'oh', 'bug', 'sm')
 group by
   c.name;
@@ -67,8 +67,8 @@ inner join
   days d on
   a.day_id = d.id
 where
-  d.dt >= '2012-02-01' and
-  d.dt <= '2012-02-14' and
+  d.dt >= '2012-02-15' and
+  d.dt <= '2012-02-28' and
   c.abbr = 'sto'
 group by
   story;
@@ -88,8 +88,8 @@ inner join
   days d on
   a.day_id = d.id
 where
-  d.dt >= '2012-02-01' and
-  d.dt <= '2012-02-14' and
+  d.dt >= '2012-02-15' and
+  d.dt <= '2012-02-28' and
   c.abbr in ('un');
 
 -- Report all overhead activity
@@ -107,6 +107,6 @@ inner join
   days d on
   a.day_id = d.id
 where
-  d.dt >= '2012-02-01' and
-  d.dt <= '2012-02-14' and
+  d.dt >= '2012-02-15' and
+  d.dt <= '2012-02-28' and
   c.abbr in ('oh');
